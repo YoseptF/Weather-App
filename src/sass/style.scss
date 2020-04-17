@@ -1,0 +1,12 @@
+@import './flags.scss';
+$primary: red;
+@import "~bootstrap/scss/bootstrap";
+
+
+.flag{
+  display: inline;
+  span{
+    transform: scale(1.8) translate(6px, 0px);
+    height: 25px;
+  }
+}

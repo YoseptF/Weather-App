@@ -40,5 +40,11 @@
     "wait-on": "^4.0.2",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "country-region-dropdown-menu": "1.2.1",
+    "jquery": "^3.5.0",
+    "webpack-jquery-ui": "^2.0.1"
   }
 }

@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
@@ -22,13 +23,25 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|gif|po)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
               limit: 50000, // Convert images < 5mb to base64 strings
               name: 'images/[hash]-[name].[ext]',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.po$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: 50000, // Convert images < 5mb to base64 strings
+              name: 'lang/[name].[ext]',
             },
           },
         ],
@@ -58,6 +71,12 @@ module.exports = {
       host: 'localhost',
       port: 3000,
       server: { baseDir: ['dist'] },
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': "jquery'",
+      'window.$': 'jquery',
     }),
   ],
 };
