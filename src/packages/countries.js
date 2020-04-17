@@ -19,5 +19,13 @@ const mapForm = `
 `;
 
 const createForm = () => {
-  DOMcreate();
+  document.querySelector('.container-fluid').innerHTML = mapForm;
+  document.querySelector('body').addEventListener('click', event => {
+    console.log(event.target);
+    if (event.target.classList.contains('ui-menu-item-wrapper')) {
+      document.querySelector('.flag').innerHTML = event.target.firstElementChild.outerHTML;
+    }
+  });
 };
+
+export default createForm;
