@@ -1,5 +1,6 @@
 import csc from 'country-state-city-plus';
 import 'flag-icon-css/css/flag-icon.min.css';
+import getWeather from './weather';
 
 let city;
 
@@ -53,6 +54,7 @@ ${countryOptions()}
 <div class="options">
 </div>
 </dl>
+<div class="weather"></div>
 `;
 
 const updateSelection = (selector, updateable, nextSelector, nextFunction, next = null) => {
@@ -69,7 +71,7 @@ const updateSelection = (selector, updateable, nextSelector, nextFunction, next 
       }
       if (selector == '.city-select') {
         city = document.querySelector('.city-default span').innerHTML;
-        console.log(city);
+        getWeather(city);
       }
     }
     if (next) {
