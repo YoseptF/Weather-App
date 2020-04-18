@@ -1,12 +1,43 @@
-@import './flags.scss';
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap");
 $primary: red;
-@import "~bootstrap/scss/bootstrap";
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
 
-.flag{
+.flag {
   display: inline;
-  span{
+  span {
     transform: scale(1.8) translate(6px, 0px);
     height: 25px;
+  }
+}
+
+.contry-select,
+.state-select,
+.city-select {
+  // box-sizing: content-box;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.747);
+  color: rgba(0, 0, 0, 0.747);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: height 3s;
+  max-height: 250px;
+  overflow: auto;
+  dt {
+    padding: 4px 0;
+    &:hover {
+      background: rgba(0, 0, 0, 0.212);
+    }
+  }
+  .options {
+    display: none;
+  }
+  &:hover {
+    background: rgba(0, 0, 0, 0.212);
   }
 }

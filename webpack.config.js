@@ -62,7 +62,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Restaurant Page',
-      // favicon: './src/images/favicon.ico',
+      favicon: './src/images/favicon.ico',
     }),
     new CleanWebpackPlugin({
       cleanAfterEveryBuildPatterns: ['*.*.js'],
@@ -71,12 +71,6 @@ module.exports = {
       host: 'localhost',
       port: 3000,
       server: { baseDir: ['dist'] },
-    }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': "jquery'",
-      'window.$': 'jquery',
     }),
   ],
 };
