@@ -1,10 +1,9 @@
 // import csc from 'country-state-city-plus';
 import csc from 'country-state-city-plus';
 import { getWeather, Units } from './weather';
-
-document.querySelector('.container').innerHTML = `
-<button class="getWeather">Get the weather</button>
-`;
+import {
+  DOMcreateForm, DOMListener, DOMGet, DOMSet, DOMPlus, DOMGetAll,
+} from './domManipulation';
 
 let city;
 let country;
@@ -54,33 +53,10 @@ const cityOptions = (id) => {
   return mappedCities.join('');
 };
 
-const mapForm = `
-<div class="background"></div>
-<div class="app">
-  <dl class="country-select">
-  <dt class="default"><span class="country-default">Select a country...</span> <i class="fas fa-sort-down"></i></dt>
-  <div class="options">
-  ${countryOptions()}
-  </div>
-  </dl>
-  <dl class="state-select">
-  <dt class="default"><span class="state-default">Select a state...</span> <i class="fas fa-sort-down"></i></dt>
-  <div class="options">
-  </div>
-  </dl>
-  <dl class="city-select">
-  <dt class="default"><span class="city-default">Select a city...</span> <i class="fas fa-sort-down"></i></dt>
-  <div class="options">
-  </div>
-  </dl>
-  <div class="weather"></div>
-</div>
-`;
-
 const updateSelection = (selector, updateable, nextSelector, nextFunction, next = null) => {
   let id;
-  document.querySelector(selector).addEventListener('click', event => {
-    const toUpdate = document.querySelector(updateable);
+  const updateSelectioEvent = event => {
+    const toUpdate = DOMGet(updateable);
     if (event.target.dataset.value || event.target.parentNode.dataset.value) {
       if (event.target.nodeName === 'SPAN') {
         toUpdate.innerHTML = event.target.parentNode.innerHTML;
@@ -90,28 +66,29 @@ const updateSelection = (selector, updateable, nextSelector, nextFunction, next 
         id = event.target.dataset.value;
       }
       if (selector === '.city-select') {
-        city = document.querySelector('.city-default span').innerHTML;
-        units = document.querySelector('.units-switch:checked').value;
+        city = DOMGet('.city-default span', 'innerHTML');
+        units = DOMGet('.units-switch:checked', 'value');
         getWeather(city, country, units);
       }
       if (selector === '.country-select') {
-        const cc = csc.getCountryByName(document.querySelector('.country-default span').innerHTML.replace(' ', '')).sortname;
+        const cc = csc.getCountryByName(DOMGet('.country-default span', 'innerHTML').replace(' ', '')).sortname;
         country = cc;
       }
     }
     if (next) {
-      document.querySelector(nextSelector).innerHTML = nextFunction(id);
+      DOMSet(nextSelector, 'innerHTML', nextFunction(id));
     }
-  });
+  };
+  DOMListener(selector, 'click', e => updateSelectioEvent(e));
   if (next) {
     next();
   }
 };
 
 const createForm = () => {
-  document.querySelector('.container').innerHTML = mapForm;
-  document.querySelector('.container').innerHTML += Units();
-  const selectors = document.querySelectorAll('.country-select, .state-select, .city-select');
+  DOMcreateForm(countryOptions);
+  DOMPlus('.container', 'innerHTML', Units);
+  const selectors = DOMGetAll('.country-select, .state-select, .city-select');
   selectors.forEach(selector => {
     selector.addEventListener('click', () => {
       selectors.forEach(select => {
@@ -137,13 +114,14 @@ const createForm = () => {
       ),
     ),
   );
-  document.querySelectorAll('.units-label').forEach(label => {
-    label.addEventListener('click', event => {
-      if (document.querySelector('.city-default').innerHTML !== 'Select a city...'
-        && !event.target.previousElementSibling.checked) {
-        getWeather(city, country, event.target.previousElementSibling.value);
-      }
-    });
+  const listenUnits = event => {
+    if (DOMGet('.city-default', 'innerHTML') !== 'Select a city...'
+      && !event.target.previousElementSibling.checked) {
+      getWeather(city, country, event.target.previousElementSibling.value);
+    }
+  };
+  DOMGetAll('.units-label').forEach(label => {
+    DOMListener(label, 'click', e => listenUnits(e));
   });
 };
 
