@@ -106,5 +106,15 @@ const cityNotFound = () => {
 };
 
 export {
-  DOMListener, createContainer, DOMcreateForm, DOMGet, DOMSet, DOMPlus, DOMGetAll, setSpiner, backgroundInOut, DOMUnits, cityNotFound,
+  DOMListener,
+  createContainer,
+  DOMcreateForm,
+  DOMGet,
+  DOMSet,
+  DOMPlus,
+  DOMGetAll,
+  setSpiner,
+  backgroundInOut,
+  DOMUnits,
+  cityNotFound,
 };
