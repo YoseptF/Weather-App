@@ -1,5 +1,5 @@
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack'); // eslint-disable-line import/no-unresolved
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');

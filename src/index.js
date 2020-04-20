@@ -1,6 +1,6 @@
 import './sass/style.scss';
-import 'regenerator-runtime';
-import 'animate.css';
+import 'regenerator-runtime'; // eslint-disable-line import/no-unresolved
+import 'animate.css'; // eslint-disable-line import/no-unresolved
 import { createContainer, DOMListener } from './packages/domManipulation';
 
 async function getCountriesModule() {

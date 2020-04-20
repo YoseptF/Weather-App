@@ -1,5 +1,4 @@
-// import csc from 'country-state-city-plus';
-import csc from 'country-state-city-plus';
+import csc from 'country-state-city-plus'; // eslint-disable-line import/no-unresolved
 import { getWeather, Units } from './weather';
 import {
   DOMcreateForm, DOMListener, DOMGet, DOMSet, DOMPlus, DOMGetAll,
