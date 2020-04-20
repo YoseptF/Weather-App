@@ -15,11 +15,17 @@ $ git clone git@github.com:YoseptF/Weather-App.git || $ git clone https://github
 ```
 $ cd [your desired branch]
 ``` 
-2. install the dependencies
+3. install the dependencies
 ```
 $ npm install
 ```
-3. start the project
+4. add you API inside of an .env file like this (the .env file must be at the root directory)
+```
+//.env
+WEATHER_API=your_api_key
+```
+or add it in your env varaibles if you are publishing to heroku
+5. start the project
 ```
 $ npm run watch
 ```
