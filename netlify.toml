@@ -10,3 +10,4 @@
   publish = ""
   command = "npm start"
   port = 3000
+  framework = "create-react-app"
