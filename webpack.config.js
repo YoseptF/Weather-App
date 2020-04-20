@@ -73,7 +73,9 @@ module.exports = {
       port: 3000,
       server: { baseDir: ['dist'] },
     }),
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
   ],
   optimization: {
     splitChunks: {
