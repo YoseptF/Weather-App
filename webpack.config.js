@@ -74,7 +74,7 @@ module.exports = {
       server: { baseDir: ['dist'] },
     }),
     new Dotenv({
-      systemvars: true,
+      // systemvars: true,
     }),
   ],
   optimization: {

@@ -11,12 +11,18 @@ let country;
 
 const countryOptions = () => {
   const countries = csc.getAllCountries();
-  const mappedCountries = countries.map(country => {
-    if (country.sortname === 'TP' || country.sortname === 'XA' || country.sortname === 'XU' || country.sortname === 'XJ' || country.sortname === 'XM' || country.sortname === 'XG' || country.sortname === 'YU') { return false; }
+  const mappedCountries = countries.filter(countryUnfiltered => (
+    countryUnfiltered.sortname !== 'TP'
+      && countryUnfiltered.sortname !== 'XA'
+      && countryUnfiltered.sortname !== 'XU'
+      && countryUnfiltered.sortname !== 'XJ'
+      && countryUnfiltered.sortname !== 'XM'
+      && countryUnfiltered.sortname !== 'XG'
+      && countryUnfiltered.sortname !== 'YU')).map(country => {
     const elem = `
     <dt class="country" data-value="${country.id}">
-      <img loading="lazy" src="https://www.countryflags.io/${country.sortname.toLowerCase()}/flat/32.png">
-      <span>${country.name}</span>
+      <img loading="lazy" src="https://www.countryflags.io/${country.sortname.toLowerCase()}/flat/64.png">&nbsp
+      <span> ${country.name}</span>
     </dt>
     `;
     return elem;
@@ -48,23 +54,26 @@ const cityOptions = (id) => {
 };
 
 const mapForm = `
-<dl class="contry-select">
-<dt class="default"><span class="country-default">Select a country...</span> <i class="fas fa-sort-down"></i></dt>
-<div class="options">
-${countryOptions()}
+<div class="background"></div>
+<div class="app">
+  <dl class="country-select">
+  <dt class="default"><span class="country-default">Select a country...</span> <i class="fas fa-sort-down"></i></dt>
+  <div class="options">
+  ${countryOptions()}
+  </div>
+  </dl>
+  <dl class="state-select">
+  <dt class="default"><span class="state-default">Select a state...</span> <i class="fas fa-sort-down"></i></dt>
+  <div class="options">
+  </div>
+  </dl>
+  <dl class="city-select">
+  <dt class="default"><span class="city-default">Select a city...</span> <i class="fas fa-sort-down"></i></dt>
+  <div class="options">
+  </div>
+  </dl>
+  <div class="weather"></div>
 </div>
-</dl>
-<dl class="state-select">
-<dt class="default"><span class="state-default">Select a state...</span> <i class="fas fa-sort-down"></i></dt>
-<div class="options">
-</div>
-</dl>
-<dl class="city-select">
-<dt class="default"><span class="city-default">Select a city...</span> <i class="fas fa-sort-down"></i></dt>
-<div class="options">
-</div>
-</dl>
-<div class="weather"></div>
 `;
 
 const updateSelection = (selector, updateable, nextSelector, nextFunction, next = null) => {
@@ -81,11 +90,12 @@ const updateSelection = (selector, updateable, nextSelector, nextFunction, next 
       }
       if (selector === '.city-select') {
         city = document.querySelector('.city-default span').innerHTML;
-        getWeather(city);
+        getWeather(city, country);
       }
       if (selector === '.country-select') {
-        country = document.querySelector('.city-default span').innerHTML;
-        getWeather(city);
+        const cc = csc.getCountryByName(document.querySelector('.country-default span').innerHTML.replace(' ', '')).sortname;
+        console.log('cc: ', cc);
+        country = cc;
       }
     }
     if (next) {
@@ -99,18 +109,18 @@ const updateSelection = (selector, updateable, nextSelector, nextFunction, next 
 
 const createForm = () => {
   document.querySelector('.container').innerHTML = mapForm;
-  const selectors = document.querySelectorAll('.contry-select, .state-select, .city-select');
+  const selectors = document.querySelectorAll('.country-select, .state-select, .city-select');
   selectors.forEach(selector => {
     selector.addEventListener('click', () => {
       selectors.forEach(select => {
-        if (select !== selector)select.lastElementChild.style.display = 'none';
+        if (select !== selector) select.lastElementChild.style.display = 'none';
       });
       const now = selector.lastElementChild.style.display;
       selector.lastElementChild.style.display = now === 'block' ? 'none' : 'block';
     });
   });
   updateSelection(
-    '.contry-select',
+    '.country-select',
     '.country-default',
     '.state-select .options',
     (id) => stateOptions(id),
