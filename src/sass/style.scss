@@ -29,7 +29,7 @@ $primary: red;
   justify-content: center;
   .background {
     z-index: -1;
-    background: url(https://source.unsplash.com/featured/?weather) center/cover;
+    background: url("https://source.unsplash.com/featured/?weather") center/cover;
     min-height: 100vh;
     min-width: 100vw;
     position: absolute;

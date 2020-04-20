@@ -25,7 +25,7 @@ const getWeather = (city, country) => {
               <h2 class="description">${result.weather[0].description}</h2>
               <img src="http://openweathermap.org/img/wn/10d@2x.png">
             `;
-            theBackground.style.background = `url(${URL.createObjectURL(blob)}) center/cover`;
+            theBackground.style.background = `url("${URL.createObjectURL(blob)}") center/cover`;
             theBackground.classList.add('changeOut');
             setTimeout(() => {
               theBackground.classList.remove('changeIn');
