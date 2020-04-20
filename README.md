@@ -30,7 +30,7 @@ or add it in your env varaibles if you are publishing to heroku
 $ npm run watch
 ```
 
-4. Open your localhost
+6. Open your localhost
 It will automatically open a browser tab, but if for some reason it doesn't, you can go to
 ```
 http://localhost:3000/
