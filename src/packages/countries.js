@@ -1,6 +1,6 @@
 // import csc from 'country-state-city-plus';
 import csc from 'country-state-city-plus';
-import getWeather from './weather';
+import { getWeather, Units } from './weather';
 
 document.querySelector('.container').innerHTML = `
 <button class="getWeather">Get the weather</button>
@@ -8,17 +8,18 @@ document.querySelector('.container').innerHTML = `
 
 let city;
 let country;
+let units;
 
 const countryOptions = () => {
   const countries = csc.getAllCountries();
   const mappedCountries = countries.filter(countryUnfiltered => (
     countryUnfiltered.sortname !== 'TP'
-      && countryUnfiltered.sortname !== 'XA'
-      && countryUnfiltered.sortname !== 'XU'
-      && countryUnfiltered.sortname !== 'XJ'
-      && countryUnfiltered.sortname !== 'XM'
-      && countryUnfiltered.sortname !== 'XG'
-      && countryUnfiltered.sortname !== 'YU')).map(country => {
+    && countryUnfiltered.sortname !== 'XA'
+    && countryUnfiltered.sortname !== 'XU'
+    && countryUnfiltered.sortname !== 'XJ'
+    && countryUnfiltered.sortname !== 'XM'
+    && countryUnfiltered.sortname !== 'XG'
+    && countryUnfiltered.sortname !== 'YU')).map(country => {
     const elem = `
     <dt class="country" data-value="${country.id}">
       <img loading="lazy" src="https://www.countryflags.io/${country.sortname.toLowerCase()}/flat/64.png">&nbsp
@@ -90,11 +91,11 @@ const updateSelection = (selector, updateable, nextSelector, nextFunction, next 
       }
       if (selector === '.city-select') {
         city = document.querySelector('.city-default span').innerHTML;
-        getWeather(city, country);
+        units = document.querySelector('.units-switch:checked').value;
+        getWeather(city, country, units);
       }
       if (selector === '.country-select') {
         const cc = csc.getCountryByName(document.querySelector('.country-default span').innerHTML.replace(' ', '')).sortname;
-        console.log('cc: ', cc);
         country = cc;
       }
     }
@@ -109,6 +110,7 @@ const updateSelection = (selector, updateable, nextSelector, nextFunction, next 
 
 const createForm = () => {
   document.querySelector('.container').innerHTML = mapForm;
+  document.querySelector('.container').innerHTML += Units();
   const selectors = document.querySelectorAll('.country-select, .state-select, .city-select');
   selectors.forEach(selector => {
     selector.addEventListener('click', () => {
@@ -135,6 +137,14 @@ const createForm = () => {
       ),
     ),
   );
+  document.querySelectorAll('.units-label').forEach(label => {
+    label.addEventListener('click', event => {
+      if (document.querySelector('.city-default').innerHTML !== 'Select a city...'
+        && !event.target.previousElementSibling.checked) {
+        getWeather(city, country, event.target.previousElementSibling.value);
+      }
+    });
+  });
 };
 
 export default createForm;

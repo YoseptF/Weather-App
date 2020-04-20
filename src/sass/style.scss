@@ -176,3 +176,37 @@ $primary: red;
     // filter: blur(50px);
   }
 }
+
+
+.units-wrapper{
+  position: fixed;
+  top: 0;
+  right: 0;
+  .units-label{
+    cursor: pointer;
+    padding: 12px;
+    font-weight: 900;
+    font-size: 3rem;
+    color: black;
+    background: white;
+    &:nth-child(2){
+      border-radius: 10px 0px 0 10px;
+    }
+    &:nth-child(4){
+      border-radius: 0px 10px 10px 0px;
+    }
+    &:hover{
+      background: lighten(red, 15%);
+    }
+  }
+  .units-switch{
+    display: none;
+  }
+
+  .units-switch:checked + .units-label{
+    background-color: lighten(red, 10%);
+    &:hover{
+      background: lighten(red, 15%);
+    }
+  }
+}
