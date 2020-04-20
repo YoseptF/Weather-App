@@ -16,10 +16,19 @@ $primary: red;
   }
 }
 
+.country{
+  display: flex;
+  align-items: center;
+}
+
 .contry-select,
 .state-select,
 .city-select {
   // box-sizing: content-box;
+  .default span{
+    display: flex;
+    align-items: center;
+  }
   padding: 12px;
   border: 1px solid rgba(0, 0, 0, 0.747);
   color: rgba(0, 0, 0, 0.747);

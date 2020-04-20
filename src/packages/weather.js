@@ -1,7 +1,6 @@
 
-const getWeather = (city) => {
-  console.log(process.env.WEATHER_API);
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.WEATHER_API}`;
+const getWeather = (city, country) => {
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${process.env.WEATHER_API}`;
 
   const requestOptions = {
     method: 'GET',
@@ -11,7 +10,6 @@ const getWeather = (city) => {
   fetch(url, requestOptions)
     .then(response => response.json())
     .then(result => {
-      console.log(result);
       document.querySelector('.weather').innerHTML = `
       <h1>${result.name}, ${result.sys.country}</h1>
       <h2 class="description">${result.weather[0].description}</h2>

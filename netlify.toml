@@ -1,0 +1,11 @@
+[build]
+  base = "/"
+  publish = ""
+  command = "npm run build"
+  functions = "serverlesss/"
+
+[dev]
+  base = "dist/"
+  publish = ""
+  command = "npm start"
+  port = 3000

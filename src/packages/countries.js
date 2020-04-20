@@ -1,17 +1,27 @@
+// import csc from 'country-state-city-plus';
 import csc from 'country-state-city-plus';
-import 'flag-icon-css/css/flag-icon.min.css';
 import getWeather from './weather';
 
+document.querySelector('.container').innerHTML = `
+<button class="getWeather">Get the weather</button>
+`;
+
 let city;
+let country;
 
 const countryOptions = () => {
   const countries = csc.getAllCountries();
-  const mappedCountries = countries.map(country => `
-  <dt data-value="${country.id}">
-    <span class="flag-icon flag-icon-${country.sortname.toLowerCase()}"></span>
-    <span>${country.name}</span>
-  </dt>
-  `);
+  const mappedCountries = countries.map(country => {
+    if (country.sortname === 'TP' || country.sortname === 'XA' || country.sortname === 'XU' || country.sortname === 'XJ' || country.sortname === 'XM' || country.sortname === 'XG' || country.sortname === 'YU') { return false; }
+    const elem = `
+    <dt class="country" data-value="${country.id}">
+      <img loading="lazy" src="https://www.countryflags.io/${country.sortname.toLowerCase()}/flat/32.png">
+      <span>${country.name}</span>
+    </dt>
+    `;
+    return elem;
+  });
+
   return mappedCountries.join('');
 };
 
@@ -69,8 +79,12 @@ const updateSelection = (selector, updateable, nextSelector, nextFunction, next 
         toUpdate.innerHTML = event.target.innerHTML;
         id = event.target.dataset.value;
       }
-      if (selector == '.city-select') {
+      if (selector === '.city-select') {
         city = document.querySelector('.city-default span').innerHTML;
+        getWeather(city);
+      }
+      if (selector === '.country-select') {
+        country = document.querySelector('.city-default span').innerHTML;
         getWeather(city);
       }
     }
@@ -89,7 +103,7 @@ const createForm = () => {
   selectors.forEach(selector => {
     selector.addEventListener('click', () => {
       selectors.forEach(select => {
-        if (select != selector)select.lastElementChild.style.display = 'none';
+        if (select !== selector)select.lastElementChild.style.display = 'none';
       });
       const now = selector.lastElementChild.style.display;
       selector.lastElementChild.style.display = now === 'block' ? 'none' : 'block';
