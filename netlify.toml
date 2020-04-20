@@ -2,7 +2,8 @@
   base = "/"
   publish = ""
   command = "npm run build"
-  functions = "serverlesss/"
+  functions = "built_functions/"
+  functionsSource = "functions/"
 
 [dev]
   base = "dist/"
