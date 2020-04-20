@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --mode=development --watch",
+    "start": "node server.js",
+    "watch": "webpack --mode=development --watch",
     "build": "webpack --mode=production"
   },
   "repository": {
@@ -45,6 +46,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "country-state-city-plus": "^1.1.1",
     "regenerator-runtime": "^0.13.5"
   }

@@ -1,6 +1,6 @@
 [build]
   base = "/"
-  publish = ""
+  publish = "dist"
   command = "npm run build"
   functions = "built_functions/"
   functionsSource = "functions/"
