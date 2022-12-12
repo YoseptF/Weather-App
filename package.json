@@ -49,7 +49,7 @@
     "animate.css": "^3.7.2",
     "country-state-city-plus": "^1.1.1",
     "dotenv-webpack": "^1.7.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "regenerator-runtime": "^0.13.5"
   }
 }
